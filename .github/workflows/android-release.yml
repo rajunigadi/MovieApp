@@ -18,7 +18,8 @@ jobs:
         with:
           args: --config configs/detekt/default_detekt.yml
 
-  apk:
+  build:
+    needs: detekt
     name: Generate APK
     runs-on: ubuntu-latest
 

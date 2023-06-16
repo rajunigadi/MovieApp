@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Run the script and get the return code if successful of if fails
+if ! grep -qE ^"Feature|Fix" "$1";then
+    cat "$MSG"
+    echo "Commit message must begin with the words 'Feature' or 'Fix'"
+    exit 1
+fi

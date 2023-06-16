@@ -1,26 +1,20 @@
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
 }
 
 android {
-    namespace = "com.raju.movie.app"
+    namespace = "com.raju.movie.design"
     compileSdk = libs.versions.android.sdk.compile.get().toInt()
 
     defaultConfig {
-        applicationId = "com.raju.movie.app"
         minSdk = libs.versions.android.sdk.min.get().toInt()
-        targetSdk = libs.versions.android.sdk.target.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        targetSdk = 33
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -45,21 +39,9 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
-    packaging {
-        resources {
-            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
-        }
-    }
-}
-
-// Allow references to generated code
-kapt {
-    correctErrorTypes = true
 }
 
 dependencies {
-    implementation(projects.design)
-
     implementation(libs.core)
     implementation(libs.lifecycle.runtime)
 
@@ -69,6 +51,7 @@ dependencies {
 
     // Choose one of the following:
     implementation(libs.bundles.compose)
+
     implementation(libs.compose.activity)
     implementation(libs.compose.viewmodel)
     implementation(libs.compose.livedata)
@@ -77,7 +60,6 @@ dependencies {
     implementation(libs.compose.coil)
     implementation(libs.compose.lottie)
 
-    // dagger hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.compose.hilt.navigation)
